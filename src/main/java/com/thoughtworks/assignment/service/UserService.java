@@ -7,5 +7,5 @@ import com.thoughtworks.assignment.domain.User;
  */
 public interface UserService {
 
-    User save(User user);
+    User register(User user);
 }

@@ -59,8 +59,8 @@ public class UserController {
     };
 
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public UserDTO create(@RequestBody UserRegistration registration) {
-        return userUserDTOFunction.apply(userService.save(registrationUserFunction.apply(registration)));
+    public UserDTO register(@RequestBody UserRegistration registration) {
+        return userUserDTOFunction.apply(userService.register(registrationUserFunction.apply(registration)));
     }
 
     @RequestMapping(method = RequestMethod.GET)

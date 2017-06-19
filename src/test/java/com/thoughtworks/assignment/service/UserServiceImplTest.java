@@ -29,7 +29,7 @@ public class UserServiceImplTest {
         User user = new User("name", "email", "username", "address", "password", 8888888, UserType.BUYER);
         user.setId(1);
         Mockito.when( userRepository.save(user)).thenReturn( user);
-        User expected = service.save(user);
+        User expected = service.register(user);
         assertEquals( expected.getId(),user.getId());
     }
 

@@ -41,7 +41,7 @@ public class UserControllerITTest {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenEmployee_whenGetEmployees_thenStatus200()
+    public void shouldReturnUser()
             throws Exception {
 
 
