@@ -26,22 +26,22 @@ public class User {
         this.type = type;
     }
 
-    @Column(name = "name")
+    @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email",nullable = false)
     private String email;
 
-    @Column(name = "username")
+    @Column(name = "username",nullable = false)
     private String username;
 
-    @Column(name = "address")
+    @Column(name = "address",nullable = false)
     private String address;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "mobile")
+    @Column(name = "mobile",nullable = false)
     private int mobile;
 
     @Enumerated(EnumType.STRING)

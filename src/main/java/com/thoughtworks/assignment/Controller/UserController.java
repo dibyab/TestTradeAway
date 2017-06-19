@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.Controller;
 
 import com.thoughtworks.assignment.domain.User;
+import com.thoughtworks.assignment.dto.UserDTO;
 import com.thoughtworks.assignment.dto.UserRegistration;
 import com.thoughtworks.assignment.service.UserService;
 import org.springframework.http.MediaType;
@@ -21,9 +22,9 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    private Function<UserRegistration,User> transformer = registration -> {
+    private Function<UserRegistration, User> registrationUserFunction = registration -> {
 
-        User user = new User( registration.getName(),
+        User user = new User(registration.getName(),
                 registration.getEmail(),
                 registration.getUsername(),
                 registration.getAddress(),
@@ -31,17 +32,35 @@ public class UserController {
                 registration.getMobile(),
                 registration.getType());
 
-        user.setPanNumber( registration.getPanNumber());
-        user.setDateOfBirth( registration.getDateOfBirth());
-        user.setMonthExperience( registration.getMonthExperience());
-        user.setYearExperience( registration.getYearExperience());
-        user.setGender( registration.getGender());
+        user.setPanNumber(registration.getPanNumber());
+        user.setDateOfBirth(registration.getDateOfBirth());
+        user.setMonthExperience(registration.getMonthExperience());
+        user.setYearExperience(registration.getYearExperience());
+        user.setGender(registration.getGender());
         return user;
     };
 
+    private Function<User, UserDTO> userUserDTOFunction = user -> {
+
+        UserDTO dto = new UserDTO();
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setUsername(user.getUsername());
+        dto.setAddress(user.getAddress());
+        dto.setMobile(user.getMobile());
+        dto.setType(user.getType());
+
+        user.setPanNumber(user.getPanNumber());
+        user.setDateOfBirth(user.getDateOfBirth());
+        user.setMonthExperience(user.getMonthExperience());
+        user.setYearExperience(user.getYearExperience());
+        user.setGender(user.getGender());
+        return dto;
+    };
+
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public void create(@RequestBody UserRegistration registration) {
-        userService.save(transformer.apply(registration));
+    public UserDTO create(@RequestBody UserRegistration registration) {
+        return userUserDTOFunction.apply(userService.save(registrationUserFunction.apply(registration)));
     }
 
     @RequestMapping(method = RequestMethod.GET)
