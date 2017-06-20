@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by dibyab on 6/20/17.
@@ -16,18 +17,24 @@ public class Category {
         return id;
     }
 
-    private Category(){} ;
+    private Category() {
+    }
 
-    @Column(name = "categoryName",nullable = false)
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    @Column(name = "categoryName", nullable = false)
     private String categoryName;
+
+    @OneToMany(mappedBy = "category")
+    private List<Item> items;
 
     public String getCategoryName() {
         return categoryName;
     }
 
     public void setCategoryName(String categoryName) {
-
-
         this.categoryName = categoryName;
     }
 
@@ -35,9 +42,11 @@ public class Category {
         this.id = id;
     }
 
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
+    public List<Item> getItems() {
+        return items;
+    }
 
-
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }

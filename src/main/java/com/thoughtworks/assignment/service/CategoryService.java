@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.service;
 
-import com.thoughtworks.assignment.controller.dto.CategoryDTO;
+import com.thoughtworks.assignment.domain.Category;
+import com.thoughtworks.assignment.domain.Item;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  */
 public interface CategoryService {
 
-    List<CategoryDTO> getAll();
+    List<Category> getAll();
 
+    List<Item> getItemsByCategory(int categoryId);
 }

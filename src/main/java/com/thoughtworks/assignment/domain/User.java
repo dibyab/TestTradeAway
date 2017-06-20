@@ -2,11 +2,14 @@ package com.thoughtworks.assignment.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by vrushali on 6/16/17.
  */
-@Entity(name = "app_user")
+@Entity
+@Table(name = "app_user")
 public class User {
 
     @Id
@@ -61,6 +64,9 @@ public class User {
 
     @Column(name = "month_experience")
     private int monthExperience;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Stock> stocks = new HashSet<>();
 
     public int getId() {
         return id;
@@ -165,4 +171,9 @@ public class User {
     public void setMonthExperience(int monthExperience) {
         this.monthExperience = monthExperience;
     }
+
+    public void addStock(Stock stock){
+        this.stocks.add( stock);
+    }
+
 }

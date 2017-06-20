@@ -2,9 +2,9 @@ package com.thoughtworks.assignment.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.assignment.TradeawayApplication;
-import com.thoughtworks.assignment.domain.UserType;
 import com.thoughtworks.assignment.controller.dto.UserRegistration;
-import com.thoughtworks.assignment.validator.RegistrationFailedException;
+import com.thoughtworks.assignment.domain.UserType;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,9 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.util.NestedServletException;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by vrushali on 6/19/17.
@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         classes = TradeawayApplication.class
 )
 @AutoConfigureMockMvc
+@Ignore
 @TestPropertySource( locations = "classpath:application-integration.properties")
 public class UserControllerITTest {
 
