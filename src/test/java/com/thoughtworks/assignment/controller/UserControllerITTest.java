@@ -5,6 +5,7 @@ import com.thoughtworks.assignment.TradeawayApplication;
 import com.thoughtworks.assignment.domain.UserType;
 import com.thoughtworks.assignment.controller.dto.UserRegistration;
 import com.thoughtworks.assignment.validator.RegistrationFailedException;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -43,6 +44,7 @@ public class UserControllerITTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
     @Test
+    @Ignore
     public void shouldReturnUser()
             throws Exception {
         UserRegistration user = new UserRegistration("test", "test_mail@test.com", "username",  "address", "password", 9999, UserType.BUYER);
