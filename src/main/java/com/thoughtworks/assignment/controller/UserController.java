@@ -1,9 +1,10 @@
-package com.thoughtworks.assignment.Controller;
+package com.thoughtworks.assignment.controller;
 
 import com.thoughtworks.assignment.domain.User;
-import com.thoughtworks.assignment.dto.UserDTO;
-import com.thoughtworks.assignment.dto.UserRegistration;
+import com.thoughtworks.assignment.controller.dto.UserDTO;
+import com.thoughtworks.assignment.controller.dto.UserRegistration;
 import com.thoughtworks.assignment.service.UserService;
+import com.thoughtworks.assignment.validator.RegistrationFailedException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.function.Function;
 
 /**
@@ -22,7 +24,7 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    private Function<UserRegistration, User> registrationUserFunction = registration -> {
+    public static final Function<UserRegistration, User> registrationUserFunction = registration -> {
 
         User user = new User(registration.getName(),
                 registration.getEmail(),
@@ -40,7 +42,7 @@ public class UserController {
         return user;
     };
 
-    private Function<User, UserDTO> userUserDTOFunction = user -> {
+    public static final Function<User, UserDTO> userUserDTOFunction = user -> {
 
         UserDTO dto = new UserDTO();
         dto.setName(user.getName());
@@ -50,23 +52,23 @@ public class UserController {
         dto.setMobile(user.getMobile());
         dto.setType(user.getType());
 
-        user.setPanNumber(user.getPanNumber());
-        user.setDateOfBirth(user.getDateOfBirth());
-        user.setMonthExperience(user.getMonthExperience());
-        user.setYearExperience(user.getYearExperience());
-        user.setGender(user.getGender());
+        dto.setPanNumber(user.getPanNumber());
+        dto.setDateOfBirth(user.getDateOfBirth());
+        dto.setMonthExperience(user.getMonthExperience());
+        dto.setYearExperience(user.getYearExperience());
+        dto.setGender(user.getGender());
         return dto;
     };
 
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public UserDTO register(@RequestBody UserRegistration registration) {
+    public UserDTO register( @RequestBody UserRegistration registration) throws RegistrationFailedException {
         return userUserDTOFunction.apply(userService.register(registrationUserFunction.apply(registration)));
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String test() {
-        return "{\"status\" : \"welcome\"}";
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String test() {
+//        return "{\"status\" : \"welcome\"}";
+//    }
 
 
 }

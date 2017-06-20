@@ -1,29 +1,29 @@
--- Table: public."user"
+-- Table: public."app_user"
 
--- DROP TABLE public."user";
+-- DROP TABLE public."app_user";
 
-CREATE TABLE public."user"
+CREATE TABLE public."app_user"
 (
     id integer NOT NULL,
-    name character varying(100)[] COLLATE pg_catalog."default" NOT NULL,
-    email character varying(100)[] COLLATE pg_catalog."default" NOT NULL,
-    username character varying(100)[] COLLATE pg_catalog."default" NOT NULL,
+    name varchar(100) COLLATE pg_catalog."default" NOT NULL,
+    email varchar(100) COLLATE pg_catalog."default" NOT NULL,
+    username varchar(100) COLLATE pg_catalog."default" NOT NULL,
     password text COLLATE pg_catalog."default" NOT NULL,
     address text COLLATE pg_catalog."default" NOT NULL,
     mobile integer NOT NULL,
-    type character varying(10)[] COLLATE pg_catalog."default" NOT NULL,
-    gender character varying(1)[] COLLATE pg_catalog."default",
-    "dateOfBirth" date,
-    "panNumber" character varying(20)[] COLLATE pg_catalog."default",
-    "monthExperience" integer,
-    "yearExperience" integer,
-    CONSTRAINT user_pkey PRIMARY KEY (id),
-    CONSTRAINT email UNIQUE (email, username)
+    type varchar(10) COLLATE pg_catalog."default" NOT NULL,
+    gender varchar(1) COLLATE pg_catalog."default",
+    "date_of_birth" date,
+    "pan_number" varchar(20) COLLATE pg_catalog."default",
+    "month_experience" integer,
+    "year_experience" integer,
+    CONSTRAINT app_user_pkey PRIMARY KEY (id),
+    CONSTRAINT app_email UNIQUE (email, username)
 )
 WITH (
     OIDS = FALSE
 )
 TABLESPACE pg_default;
 
-ALTER TABLE public."user"
+ALTER TABLE public."app_user"
     OWNER to postgres;

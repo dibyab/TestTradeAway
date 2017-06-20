@@ -3,12 +3,15 @@ package com.thoughtworks.assignment.service;
 import com.thoughtworks.assignment.domain.User;
 import com.thoughtworks.assignment.domain.UserType;
 import com.thoughtworks.assignment.repository.UserRepository;
+import com.thoughtworks.assignment.validator.UserValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.validation.constraints.Max;
 
 import static org.junit.Assert.*;
 
@@ -23,6 +26,9 @@ public class UserServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private UserValidator userValidator;
 
     @Test
     public void shouldBeAbleToSave() throws Exception {

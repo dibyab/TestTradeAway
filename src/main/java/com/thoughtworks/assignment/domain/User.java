@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by vrushali on 6/16/17.
  */
-@Entity(name = "user")
+@Entity(name = "app_user")
 public class User {
 
     @Id
@@ -16,7 +16,7 @@ public class User {
 
     private User(){}
 
-    public User(String name, String email, String username, String address, String password, int mobile, UserType type) {
+    public User(String name, String email, String username, String address, String password, long mobile, UserType type) {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -42,7 +42,7 @@ public class User {
     private String password;
 
     @Column(name = "mobile",nullable = false)
-    private int mobile;
+    private long mobile;
 
     @Enumerated(EnumType.STRING)
     private UserType type;
@@ -50,16 +50,16 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(name = "dateOfBirth")
+    @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-    @Column(name = "panNumber")
+    @Column(name = "pan_number")
     private String panNumber;
 
-    @Column(name = "yearExperience")
+    @Column(name = "year_experience")
     private int yearExperience;
 
-    @Column(name = "monthExperience")
+    @Column(name = "month_experience")
     private int monthExperience;
 
     public int getId() {
@@ -74,7 +74,7 @@ public class User {
         return name;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -82,7 +82,7 @@ public class User {
         return email;
     }
 
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -90,7 +90,7 @@ public class User {
         return username;
     }
 
-    private void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -98,7 +98,7 @@ public class User {
         return address;
     }
 
-    private void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -106,15 +106,15 @@ public class User {
         return password;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public int getMobile() {
+    public long getMobile() {
         return mobile;
     }
 
-    private void setMobile(int mobile) {
+    public void setMobile(long mobile) {
         this.mobile = mobile;
     }
 
@@ -122,7 +122,7 @@ public class User {
         return type;
     }
 
-    private void setType(UserType type) {
+    public void setType(UserType type) {
         this.type = type;
     }
 

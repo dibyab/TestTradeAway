@@ -1,8 +1,9 @@
-package com.thoughtworks.assignment.dto;
+package com.thoughtworks.assignment.controller.dto;
 
 import com.thoughtworks.assignment.domain.Gender;
 import com.thoughtworks.assignment.domain.UserType;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class UserDTO {
     private String email;
     private String username;
     private String address;
-    private int mobile;
+    private long mobile;
     private UserType type;
     private Gender gender;
     private Date dateOfBirth;
@@ -62,14 +63,6 @@ public class UserDTO {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public int getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(int mobile) {
-        this.mobile = mobile;
     }
 
     public UserType getType() {
@@ -118,5 +111,13 @@ public class UserDTO {
 
     public void setMonthExperience(int monthExperience) {
         this.monthExperience = monthExperience;
+    }
+
+    public long getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(long mobile) {
+        this.mobile = mobile;
     }
 }
