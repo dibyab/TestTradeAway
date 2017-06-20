@@ -18,7 +18,7 @@ import java.util.function.Function;
 /**
  * Created by vrushali on 6/16/17.
  */
-@RestController("/user")
+@RestController
 public class UserController {
 
     @Resource
@@ -60,15 +60,9 @@ public class UserController {
         return dto;
     };
 
-    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/user",method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public UserDTO register( @RequestBody UserRegistration registration) throws RegistrationFailedException {
         return userUserDTOFunction.apply(userService.register(registrationUserFunction.apply(registration)));
     }
-
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String test() {
-//        return "{\"status\" : \"welcome\"}";
-//    }
-
 
 }
