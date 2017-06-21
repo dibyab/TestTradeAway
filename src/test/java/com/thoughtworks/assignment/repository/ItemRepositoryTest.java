@@ -40,7 +40,7 @@ public class ItemRepositoryTest {
 
         final Category persist = testEntityManager.persistAndFlush(category);
 
-        final List<Item> byCategoryId = itemRepository.findByCategory_Id( category.getId());
+        final List<Item> byCategoryId = itemRepository.findByCategory_Id( persist.getId());
 
         assertNotNull( byCategoryId);
         assertEquals( 2, byCategoryId.size());
