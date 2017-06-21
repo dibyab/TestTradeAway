@@ -3,8 +3,9 @@ package com.thoughtworks.assignment.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.assignment.TradeawayApplication;
 import com.thoughtworks.assignment.controller.dto.UserRegistration;
+import com.thoughtworks.assignment.domain.Seller;
 import com.thoughtworks.assignment.domain.UserType;
-import org.junit.Ignore;
+import com.thoughtworks.assignment.repository.SellerBaseRepository;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,7 +19,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.util.NestedServletException;
 
-import static org.hamcrest.Matchers.equalTo;
+import javax.annotation.Resource;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,7 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         classes = TradeawayApplication.class
 )
 @AutoConfigureMockMvc
-@Ignore
 @TestPropertySource( locations = "classpath:application-integration.properties")
 public class UserControllerITTest {
 
@@ -43,16 +46,33 @@ public class UserControllerITTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    @Resource
+    private SellerBaseRepository sellerRepository;
+
     @Test
-    public void shouldReturnUser()
+    public void shouldReturnSeller()
             throws Exception {
-        UserRegistration user = new UserRegistration("test", "test_mail@test.com", "username",  "address", "password", 9999, UserType.BUYER);
+        UserRegistration user = new UserRegistration("test", "test_mail_1@test.com", "username_seller",  "address", "password", 9999, UserType.SELLER);
+        user.setPanNumber("1234");
+        mvc.perform(post("/user")
+                .content(mapper.writeValueAsString(user).getBytes())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+
+        final Seller seller = sellerRepository.findByEmail("test_mail_1@test.com");
+        assertNotNull( seller);
+    }
+
+    @Test
+    public void shouldReturnBuyer()
+            throws Exception {
+        UserRegistration user = new UserRegistration("test", "test_mail_2@test.com", "username_buyer",  "address", "password", 9999, UserType.BUYER);
 
         mvc.perform(post("/user")
                 .content(mapper.writeValueAsString(user).getBytes())
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", equalTo("test")));
+                .andExpect(status().isCreated());
     }
 
     @Test(expected = NestedServletException.class)
@@ -63,14 +83,12 @@ public class UserControllerITTest {
         mvc.perform(post("/user")
                 .content(mapper.writeValueAsString(user).getBytes())
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username", equalTo("duplicate_username")));
+                .andExpect(status().isCreated());
 
         mvc.perform(post("/user")
                 .content(mapper.writeValueAsString(user).getBytes())
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username", equalTo("duplicate_username")));
+                .andExpect(status().isCreated());
 
         expectedException.expect(NestedServletException.class);
     }
@@ -83,14 +101,13 @@ public class UserControllerITTest {
         mvc.perform(post("/user")
                 .content(mapper.writeValueAsString(user).getBytes())
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email", equalTo("duplicate_email@test.com")));
+                .andExpect(status().isCreated());
+
 
         mvc.perform(post("/user")
                 .content(mapper.writeValueAsString(user).getBytes())
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email", equalTo("duplicate_email@test.com")));
+                .andExpect(status().isCreated());
     }
 
 }

@@ -2,11 +2,9 @@ package com.thoughtworks.assignment.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.assignment.TradeawayApplication;
-import com.thoughtworks.assignment.controller.dto.UserRegistration;
 import com.thoughtworks.assignment.domain.User;
 import com.thoughtworks.assignment.domain.UserType;
-import com.thoughtworks.assignment.repository.UserRepository;
-import org.junit.Ignore;
+import com.thoughtworks.assignment.repository.UserBaseRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.annotation.Resource;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 )
 @AutoConfigureMockMvc
 @TestPropertySource( locations = "classpath:application-integration.properties")
-public class LoginControllerITTest {
+public class LoginITTest {
 
     @Autowired
     private MockMvc mvc;
@@ -44,7 +40,7 @@ public class LoginControllerITTest {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Resource
-    private UserRepository userRepository;
+    private UserBaseRepository userRepository;
 
     @Test
     public void login() throws Exception {

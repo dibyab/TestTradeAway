@@ -1,15 +1,15 @@
 package com.thoughtworks.assignment.domain;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by vrushali on 6/16/17.
  */
 @Entity
 @Table(name = "app_user")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "discriminator",discriminatorType = DiscriminatorType.CHAR)
+@DiscriminatorValue(value = "U")
 public class User {
 
     @Id
@@ -17,7 +17,7 @@ public class User {
     @SequenceGenerator(name = "custom_sequence",sequenceName = "user_sequence")
     private int id;
 
-    private User(){}
+    protected User(){}
 
     public User(String name, String email, String username, String address, String password, long mobile, UserType type) {
         this.name = name;
@@ -50,23 +50,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType type;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
-
-    @Column(name = "pan_number")
-    private String panNumber;
-
-    @Column(name = "year_experience")
-    private int yearExperience;
-
-    @Column(name = "month_experience")
-    private int monthExperience;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Stock> stocks = new HashSet<>();
+    public boolean isSeller() {
+        return UserType.SELLER == this.type;
+    }
 
     public int getId() {
         return id;
@@ -131,49 +117,4 @@ public class User {
     public void setType(UserType type) {
         this.type = type;
     }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getPanNumber() {
-        return panNumber;
-    }
-
-    public void setPanNumber(String panNumber) {
-        this.panNumber = panNumber;
-    }
-
-    public int getYearExperience() {
-        return yearExperience;
-    }
-
-    public void setYearExperience(int yearExperience) {
-        this.yearExperience = yearExperience;
-    }
-
-    public int getMonthExperience() {
-        return monthExperience;
-    }
-
-    public void setMonthExperience(int monthExperience) {
-        this.monthExperience = monthExperience;
-    }
-
-    public void addStock(Stock stock){
-        this.stocks.add( stock);
-    }
-
 }

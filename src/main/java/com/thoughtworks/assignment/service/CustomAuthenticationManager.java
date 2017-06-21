@@ -2,7 +2,7 @@ package com.thoughtworks.assignment.service;
 
 import com.thoughtworks.assignment.domain.User;
 import com.thoughtworks.assignment.domain.UserCredentails;
-import com.thoughtworks.assignment.repository.UserRepository;
+import com.thoughtworks.assignment.repository.UserBaseRepository;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 public class CustomAuthenticationManager {
 
     @Resource
-    private UserRepository userRepository;
+    private UserBaseRepository userRepository;
 
     @Resource
     private StandardPasswordEncoder standardPasswordEncoder;

@@ -1,15 +1,16 @@
 package com.thoughtworks.assignment.controller;
 
+import com.thoughtworks.assignment.domain.Buyer;
+import com.thoughtworks.assignment.domain.Seller;
 import com.thoughtworks.assignment.domain.User;
 import com.thoughtworks.assignment.controller.dto.UserDTO;
 import com.thoughtworks.assignment.controller.dto.UserRegistration;
+import com.thoughtworks.assignment.domain.UserType;
 import com.thoughtworks.assignment.service.UserService;
 import com.thoughtworks.assignment.validator.RegistrationFailedException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -19,50 +20,53 @@ import java.util.function.Function;
  * Created by vrushali on 6/16/17.
  */
 @RestController
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Resource
     private UserService userService;
 
-    public static final Function<UserRegistration, User> registrationUserFunction = registration -> {
+    public static final Function<UserRegistration, Buyer> registrationBuyerFunction = registration -> {
 
-        User user = new User(registration.getName(),
+        Buyer user = new Buyer(registration.getName(),
                 registration.getEmail(),
                 registration.getUsername(),
                 registration.getAddress(),
                 registration.getPassword(),
-                registration.getMobile(),
-                registration.getType());
-
-        user.setPanNumber(registration.getPanNumber());
-        user.setDateOfBirth(registration.getDateOfBirth());
-        user.setMonthExperience(registration.getMonthExperience());
-        user.setYearExperience(registration.getYearExperience());
-        user.setGender(registration.getGender());
+                registration.getMobile());
         return user;
     };
 
-    public static final Function<User, UserDTO> userUserDTOFunction = user -> {
+    public static final Function<UserRegistration, Seller> registrationSellerFunction = registration -> {
 
-        UserDTO dto = new UserDTO();
-        dto.setName(user.getName());
-        dto.setEmail(user.getEmail());
-        dto.setUsername(user.getUsername());
-        dto.setAddress(user.getAddress());
-        dto.setMobile(user.getMobile());
-        dto.setType(user.getType());
-
-        dto.setPanNumber(user.getPanNumber());
-        dto.setDateOfBirth(user.getDateOfBirth());
-        dto.setMonthExperience(user.getMonthExperience());
-        dto.setYearExperience(user.getYearExperience());
-        dto.setGender(user.getGender());
-        return dto;
+        Seller user = new Seller(registration.getName(),
+                registration.getEmail(),
+                registration.getUsername(),
+                registration.getAddress(),
+                registration.getPassword(),
+                registration.getMobile());
+        return user;
     };
 
-    @RequestMapping(value = "/user",method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public UserDTO register( @RequestBody UserRegistration registration) throws RegistrationFailedException {
-        return userUserDTOFunction.apply(userService.register(registrationUserFunction.apply(registration)));
+    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseStatus(HttpStatus.CREATED)
+    public void register( @RequestBody UserRegistration registration) throws RegistrationFailedException {
+
+        if( UserType.BUYER == registration.getType()){
+
+            final Buyer buyer = registrationBuyerFunction.apply(registration);
+            buyer.setGender(registration.getGender());
+            buyer.setDateOfBirth(registration.getDateOfBirth());
+            userService.register(buyer);
+
+        } else {
+            final Seller seller = registrationSellerFunction.apply(registration);
+            seller.setMonthExperience(registration.getMonthExperience());
+            seller.setYearExperience(registration.getYearExperience());
+            seller.setPanNumber(registration.getPanNumber());
+            userService.register(seller);
+        }
+
     }
 
 }

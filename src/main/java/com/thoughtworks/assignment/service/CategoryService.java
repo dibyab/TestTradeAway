@@ -15,7 +15,5 @@ public interface CategoryService {
 
     Page<Category> getAll(Pageable pageRequest);
 
-    List<Item> getItemsByCategory(int categoryId);
-
     Category save(Category category);
 }

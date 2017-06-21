@@ -1,14 +1,13 @@
 package com.thoughtworks.assignment.service;
 
 import com.thoughtworks.assignment.domain.Category;
-import com.thoughtworks.assignment.domain.Item;
 import com.thoughtworks.assignment.repository.CategoryRepository;
+import com.thoughtworks.assignment.repository.ItemRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by dibyab on 6/20/17.
@@ -22,11 +21,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Page<Category> getAll(Pageable pageRequest) {
         return categoryRepo.findAll(pageRequest);
-    }
-
-    @Override
-    public List<Item> getItemsByCategory(int categoryId) {
-        return null;
     }
 
     @Override

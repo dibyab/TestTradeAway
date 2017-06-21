@@ -3,6 +3,7 @@ package com.thoughtworks.assignment.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.assignment.TradeawayApplication;
 import com.thoughtworks.assignment.domain.Category;
+import com.thoughtworks.assignment.domain.Item;
 import com.thoughtworks.assignment.repository.CategoryRepository;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -47,14 +48,6 @@ public class CategoryControllerITTest {
     @Resource
     private CategoryRepository categoryRepository;
 
-    @Test
-    public void shouldReturnItemsAssociatedWithACategory() throws Exception {
-        mvc.perform(get("/categories/1/items")
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.notNullValue()));
-    }
-
     @Before
     public void setup() throws Exception{
 
@@ -89,12 +82,30 @@ public class CategoryControllerITTest {
 
     }
 
+
+    @Test
+    public void shouldReturnItemsAssociatedWithACategory() throws Exception {
+
+        final Category byCategoryName = categoryRepository.findByCategoryName("test_category5");
+
+        mvc.perform(get("/categories/"+ byCategoryName.getId()+"/items")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.notNullValue()));
+    }
+
+
     private void createCategory(String name) throws Exception {
         final Category testCategory1 = new Category(name);
 
-        mvc.perform(post("/categories")
-                .content(mapper.writeValueAsString( testCategory1).getBytes())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+        testCategory1.addItem( new Item("item1","desc1"));
+        testCategory1.addItem( new Item("item2","desc2"));
+        testCategory1.addItem( new Item("item3","desc3"));
+//        mvc.perform(post("/categories")
+//                .content(mapper.writeValueAsString( testCategory1).getBytes())
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isCreated());
+        categoryRepository.save(testCategory1);
+
     }
 }
