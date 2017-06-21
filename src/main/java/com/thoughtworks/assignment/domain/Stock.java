@@ -1,5 +1,8 @@
 package com.thoughtworks.assignment.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +20,7 @@ public class Stock {
 
     @ManyToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
+    @JsonBackReference
     private Item item;
 
     @ManyToOne( cascade = CascadeType.ALL)
@@ -52,5 +56,27 @@ public class Stock {
         return price;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
