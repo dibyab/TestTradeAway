@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
@@ -40,6 +41,7 @@ public class Item {
     private URL imageUrl;
 
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Stock> stockSet = new HashSet<>();
 
     @ManyToOne
