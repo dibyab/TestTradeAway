@@ -5,7 +5,7 @@ import com.thoughtworks.assignment.TradeawayApplication;
 import com.thoughtworks.assignment.controller.dto.UserRegistration;
 import com.thoughtworks.assignment.domain.Seller;
 import com.thoughtworks.assignment.domain.UserType;
-import com.thoughtworks.assignment.repository.SellerBaseRepository;
+import com.thoughtworks.assignment.repository.SellerRepository;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -48,7 +48,7 @@ public class UserControllerITTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Resource
-    private SellerBaseRepository sellerRepository;
+    private SellerRepository sellerRepository;
 
     @Test
     public void shouldReturnSeller()

@@ -15,9 +15,7 @@ public class OrderDTO {
 
     private int quantityPurchased;
 
-
     private double price;
-
 
     private String deliveryAddress;
 

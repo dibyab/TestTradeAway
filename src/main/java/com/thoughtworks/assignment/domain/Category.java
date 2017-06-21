@@ -1,12 +1,9 @@
 package com.thoughtworks.assignment.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,7 +13,8 @@ import java.util.Set;
 public class Category {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "category_sequence")
+    @SequenceGenerator( name = "category_sequence",sequenceName = "category_sequence")
     private int id;
 
     public int getId() {

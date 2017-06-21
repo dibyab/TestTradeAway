@@ -6,25 +6,26 @@ import javax.persistence.*;
  * Created by dibyab on 6/21/17.
  */
 @Entity
-@Table(name = "item")
+@Table(name = "app_order")
 public class Order {
-    @Id
-    @GeneratedValue()
 
-    @Column(name = "order_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "order_sequence")
+    @SequenceGenerator( name = "order_sequence",sequenceName = "order_sequence")
+    @Column(name = "order_id",nullable = false)
     private int id;
 
-    @ManyToOne( cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
 
     @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "seller_id")
-    private User seller;
+    @JoinColumn(name = "id",insertable = false,updatable = false)
+    private Seller seller;
 
     @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "buyer_id")
-    private User buyer;
+    @JoinColumn(name = "id",insertable = false,updatable = false)
+    private Buyer buyer;
 
     @Column(name = "quantity_purchased")
     private int quantityPurchased;
@@ -38,7 +39,7 @@ public class Order {
     private Order() {
     }
 
-    public Order(Item item, User seller, User buyer, int quantityPurchased, double price, String deliveryAddress) {
+    public Order(Item item, Seller seller, Buyer buyer, int quantityPurchased, double price, String deliveryAddress) {
         this.item = item;
         this.seller = seller;
         this.buyer = buyer;
@@ -63,22 +64,6 @@ public class Order {
         this.item = item;
     }
 
-    public User getSeller() {
-        return seller;
-    }
-
-    public void setSeller(User seller) {
-        this.seller = seller;
-    }
-
-    public User getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
-    }
-
     public int getQuantityPurchased() {
         return quantityPurchased;
     }
@@ -101,5 +86,21 @@ public class Order {
 
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
+    public Buyer getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(Buyer buyer) {
+        this.buyer = buyer;
     }
 }

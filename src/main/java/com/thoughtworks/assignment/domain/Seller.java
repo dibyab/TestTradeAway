@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.domain;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,10 @@ public class Seller extends User{
     @Column(name = "month_experience")
     private int monthExperience;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @Column(name = "rating")
+    private double rating;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Stock> stocks = new HashSet<>();
 
     protected Seller() {}
@@ -43,5 +47,9 @@ public class Seller extends User{
 
     public void setPanNumber(String panNumber) {
         this.panNumber = panNumber;
+    }
+
+    public Set<Stock> getStocks() {
+        return Collections.unmodifiableSet(stocks);
     }
 }

@@ -1,10 +1,8 @@
 package com.thoughtworks.assignment.controller;
 
+import com.thoughtworks.assignment.controller.dto.UserRegistration;
 import com.thoughtworks.assignment.domain.Buyer;
 import com.thoughtworks.assignment.domain.Seller;
-import com.thoughtworks.assignment.domain.User;
-import com.thoughtworks.assignment.controller.dto.UserDTO;
-import com.thoughtworks.assignment.controller.dto.UserRegistration;
 import com.thoughtworks.assignment.domain.UserType;
 import com.thoughtworks.assignment.service.UserService;
 import com.thoughtworks.assignment.validator.RegistrationFailedException;
@@ -13,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.function.Function;
 
 /**
@@ -66,7 +63,6 @@ public class UserController {
             seller.setPanNumber(registration.getPanNumber());
             userService.register(seller);
         }
-
     }
 
 }

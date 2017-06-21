@@ -4,6 +4,7 @@ import com.thoughtworks.assignment.domain.Item;
 import com.thoughtworks.assignment.domain.Stock;
 import com.thoughtworks.assignment.domain.User;
 import com.thoughtworks.assignment.domain.UserType;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -36,7 +37,14 @@ public class StockRepositoryTest {
     private ItemRepository itemRepository;
 
     @Resource
-    private UserBaseRepository userRepository;
+    private UserRepository userRepository;
+
+    @Before
+    public void setup() {
+        userRepository.deleteAll();
+        itemRepository.deleteAll();
+        stockRepository.deleteAll();
+    }
 
     @Test
     public void shouldSaveStockWithUserAndItem(){
@@ -60,6 +68,10 @@ public class StockRepositoryTest {
         final List<User> users = (List<User>)userRepository.findAll();
         assertEquals(1, users.size());
         assertEquals("test_user", users.get(0).getName());
+    }
+
+    @Test
+    public void findItemsNotAssociatedWithSeller(){
 
     }
 

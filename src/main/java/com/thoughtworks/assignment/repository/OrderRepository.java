@@ -1,7 +1,6 @@
 package com.thoughtworks.assignment.repository;
 
 import com.thoughtworks.assignment.domain.Order;
-import com.thoughtworks.assignment.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +12,5 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends CrudRepository<Order,Integer> {
 
-    List<Order> findBySeller(User Seller);
+    List<Order> findById(Integer integer);
 }

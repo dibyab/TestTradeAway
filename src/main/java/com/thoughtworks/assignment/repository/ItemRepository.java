@@ -17,4 +17,7 @@ public interface ItemRepository extends CrudRepository<Item,Integer> {
     List<Item> findByCategory_Id( Integer categoryId);
 
     Page<Item> findByCategory_CategoryName(String categoryName, Pageable pageable);
+
+
+    //void findBy(ItemSearchCriteria searchCriteria);
 }

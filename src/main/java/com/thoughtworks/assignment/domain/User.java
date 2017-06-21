@@ -50,15 +50,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType type;
 
-    public boolean isSeller() {
-        return UserType.SELLER == this.type;
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -66,7 +62,7 @@ public class User {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -74,7 +70,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         this.email = email;
     }
 
@@ -82,7 +78,7 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
+    private void setUsername(String username) {
         this.username = username;
     }
 
@@ -90,7 +86,7 @@ public class User {
         return address;
     }
 
-    public void setAddress(String address) {
+    private void setAddress(String address) {
         this.address = address;
     }
 
@@ -98,7 +94,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = password;
     }
 
@@ -106,7 +102,7 @@ public class User {
         return mobile;
     }
 
-    public void setMobile(long mobile) {
+    private void setMobile(long mobile) {
         this.mobile = mobile;
     }
 
@@ -114,7 +110,7 @@ public class User {
         return type;
     }
 
-    public void setType(UserType type) {
+    private void setType(UserType type) {
         this.type = type;
     }
 }
