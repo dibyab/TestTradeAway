@@ -8,5 +8,5 @@ import com.thoughtworks.assignment.validator.RegistrationFailedException;
  */
 public interface UserService {
 
-    User register(User user) throws RegistrationFailedException;
+    void register(User user) throws RegistrationFailedException;
 }

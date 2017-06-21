@@ -1,9 +1,8 @@
 package com.thoughtworks.assignment.service;
 
 import com.thoughtworks.assignment.domain.User;
-import com.thoughtworks.assignment.domain.UserCredentails;
 import com.thoughtworks.assignment.domain.UserType;
-import com.thoughtworks.assignment.repository.UserRepository;
+import com.thoughtworks.assignment.repository.UserBaseRepository;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +28,7 @@ public class CustomAuthenticationManagerTest {
 //    private StandardPasswordEncoder encoder;
 
     @Mock
-    private UserRepository userRepository;
+    private UserBaseRepository userRepository;
 
     @Before
     public void setup(){

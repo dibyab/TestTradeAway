@@ -1,7 +1,7 @@
 package com.thoughtworks.assignment.validator;
 
 import com.thoughtworks.assignment.domain.User;
-import com.thoughtworks.assignment.repository.UserRepository;
+import com.thoughtworks.assignment.repository.UserBaseRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 public class UserValidator{
 
     @Resource
-    private UserRepository userRepository;
+    private UserBaseRepository userRepository;
 
     public void validate( User user) throws RegistrationFailedException {
 

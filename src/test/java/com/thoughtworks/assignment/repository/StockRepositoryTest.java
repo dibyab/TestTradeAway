@@ -36,7 +36,7 @@ public class StockRepositoryTest {
     private ItemRepository itemRepository;
 
     @Resource
-    private UserRepository userRepository;
+    private UserBaseRepository userRepository;
 
     @Test
     public void shouldSaveStockWithUserAndItem(){

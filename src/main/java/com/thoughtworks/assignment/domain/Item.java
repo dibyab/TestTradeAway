@@ -1,5 +1,8 @@
 package com.thoughtworks.assignment.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.net.URL;
 import java.util.HashSet;
@@ -36,18 +39,19 @@ public class Item {
     @Column(name = "imageUrl", nullable = true)
     private URL imageUrl;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
     private Set<Stock> stockSet = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "id")
+    @JsonBackReference
     private Category category;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -55,7 +59,7 @@ public class Item {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -63,7 +67,7 @@ public class Item {
         return description;
     }
 
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
     }
 
@@ -75,11 +79,19 @@ public class Item {
         this.imageUrl = imageUrl;
     }
 
-    public void setStockSet(Set<Stock> stockSet) {
-        this.stockSet = stockSet;
+    public Set<Stock> getStockSet() {
+        return this.stockSet;
     }
 
-    public void addStock(Stock stock){
+    public void addStock(Stock stock) {
         this.stockSet.add( stock);
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

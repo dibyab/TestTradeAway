@@ -4,6 +4,7 @@ import com.thoughtworks.assignment.controller.dto.CategoryDTO;
 import com.thoughtworks.assignment.domain.Category;
 import com.thoughtworks.assignment.domain.Item;
 import com.thoughtworks.assignment.service.CategoryService;
+import com.thoughtworks.assignment.service.ItemService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -20,10 +21,14 @@ import java.util.function.Function;
  * Created by vrushali on 6/20/17.
  */
 @RestController
+@RequestMapping(value = "/categories")
 public class CategoryController {
 
     @Resource
     private CategoryService categoryService;
+
+    @Resource
+    private ItemService itemService;
 
     private static final Function<List<Category>, List<CategoryDTO>> categoryCategoryDTOFunction = categories -> {
 
@@ -53,14 +58,15 @@ public class CategoryController {
         return new PageImpl<>(categoryDTOS,new PageRequest(pageNum, pageSize),categoryPage.getTotalElements());
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "/{categoryId}/items",
+    @RequestMapping(method = RequestMethod.GET,value = "/{categoryName}/items",
             consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Item> getItems(@PathVariable(value = "categoryId") int categoryId){
-        return categoryService.getItemsByCategory(categoryId);
+    public Page<Item> getItems( @PathVariable(value = "categoryName") final String categoryName,
+                                @RequestParam(value = "pageNumber",defaultValue = "0") final int pageNumber,
+                                @RequestParam(value = "pageSize",defaultValue = "10") final int pageSize){
+        return itemService.getItemsByCategory(categoryName, new PageRequest(pageNumber,pageSize));
     }
 
     @RequestMapping(
-            value = "/categories",
             method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -68,6 +74,5 @@ public class CategoryController {
     public void create( @RequestBody final Category category){
         categoryService.save(category);
     }
-
 
 }

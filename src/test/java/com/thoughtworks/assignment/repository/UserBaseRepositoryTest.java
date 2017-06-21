@@ -4,7 +4,6 @@ import com.thoughtworks.assignment.domain.User;
 import com.thoughtworks.assignment.domain.UserType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,13 +19,13 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
-public class UserRepositoryTest {
+public class UserBaseRepositoryTest {
 
     @Resource
     private TestEntityManager testEntityManager;
 
     @Resource
-    private UserRepository userRepository;
+    private UserBaseRepository userRepository;
 
     @Test
     public void shouldReturnUserWhenFindByUsername() throws Exception {

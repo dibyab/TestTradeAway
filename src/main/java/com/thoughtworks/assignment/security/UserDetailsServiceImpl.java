@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.security;
 
 import com.thoughtworks.assignment.domain.User;
+import com.thoughtworks.assignment.repository.UserBaseRepository;
 import com.thoughtworks.assignment.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
