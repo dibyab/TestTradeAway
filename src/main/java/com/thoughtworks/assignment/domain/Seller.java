@@ -24,7 +24,7 @@ public class Seller extends User{
     @Column(name = "rating")
     private double rating;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Stock> stocks = new HashSet<>();
 
     protected Seller() {}

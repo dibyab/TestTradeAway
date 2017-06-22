@@ -45,7 +45,6 @@ public class Item {
     private Set<Stock> stockSet = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "id")
     @JsonBackReference
     private Category category;
 

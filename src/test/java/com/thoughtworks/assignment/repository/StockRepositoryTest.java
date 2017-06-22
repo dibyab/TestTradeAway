@@ -1,9 +1,6 @@
 package com.thoughtworks.assignment.repository;
 
-import com.thoughtworks.assignment.domain.Item;
-import com.thoughtworks.assignment.domain.Stock;
-import com.thoughtworks.assignment.domain.User;
-import com.thoughtworks.assignment.domain.UserType;
+import com.thoughtworks.assignment.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -47,8 +45,8 @@ public class StockRepositoryTest {
     }
 
     @Test
-    public void shouldSaveStockWithUserAndItem(){
-        User user = new User("test_user", "test_mail@test.com", "username",  "address", "password", 9999, UserType.BUYER);
+    public void shouldSaveStock(){
+        Seller user = new Seller("test_user", "test_mail@test.com", "username",  "address", "password", 9999);
         Item item = new Item("item_test","test_desc");
 
         Stock stock = new Stock(item,user);
@@ -61,18 +59,35 @@ public class StockRepositoryTest {
         assertEquals( 10,result.getPrice(),0);
         assertEquals( 1,result.getQuantity(),0);
 
-        final List<Item> items = (List<Item>)itemRepository.findAll();
-        assertEquals(1, items.size());
-        assertEquals("item_test", items.get(0).getName());
-
-        final List<User> users = (List<User>)userRepository.findAll();
-        assertEquals(1, users.size());
-        assertEquals("test_user", users.get(0).getName());
+        final Stock searchByManager = testEntityManager.find(Stock.class, result.getId());
+        assertNotNull(searchByManager);
+        assertEquals("item_test", searchByManager.getItem().getName());
+        assertEquals("test_user", searchByManager.getSeller().getName());
     }
 
     @Test
     public void findItemsNotAssociatedWithSeller(){
+        final Seller seller1 = testEntityManager.persistAndFlush(new Seller("test_user", "test_mail_1@test.com", "username1", "address", "password", 9999));
+        final Item item1 = testEntityManager.persistAndFlush(new Item("item_seller1", "test_desc"));
+        saveStock( item1,seller1);
+
+        final Seller seller2 = testEntityManager.persistAndFlush(new Seller("test_user", "test_mail_2@test.com", "username2",  "address", "password", 9999));
+        final Item item2 = testEntityManager.persistAndFlush(new Item("item_seller2","test_desc"));
+        saveStock( item2,seller2);
+
+        final List<Stock> all = (List<Stock>)stockRepository.findAll();
+        assertEquals(2,all.size());
+
+        final List<Stock> bySellerNotIn = stockRepository.findBySeller_Id( seller1.getId());
+        assertNotNull( bySellerNotIn);
+        assertEquals( 1, bySellerNotIn.size());
 
     }
 
+    private void saveStock( Item item, Seller seller){
+        Stock stock = new Stock( item, seller);
+        stock.setPrice(10);
+        stock.setQuantity(1);
+        testEntityManager.persistAndFlush(stock);
+    }
 }

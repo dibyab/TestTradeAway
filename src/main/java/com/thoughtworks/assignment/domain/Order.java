@@ -16,15 +16,12 @@ public class Order {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
     private Item item;
 
     @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "id",insertable = false,updatable = false)
     private Seller seller;
 
     @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "id",insertable = false,updatable = false)
     private Buyer buyer;
 
     @Column(name = "quantity_purchased")

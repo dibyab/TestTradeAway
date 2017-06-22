@@ -18,14 +18,12 @@ public class Stock {
     @Column(name = "stock_id")
     private int id;
 
-    @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_id")
+    @ManyToOne
     @JsonBackReference
     private Item item;
 
-    @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private User user;
+    @ManyToOne
+    private Seller seller;
 
     @Column(name = "quantity")
     private int quantity;
@@ -35,9 +33,9 @@ public class Stock {
 
     private Stock(){}
 
-    public Stock(Item item, User user) {
+    public Stock(Item item, Seller seller) {
         this.item = item;
-        this.user = user;
+        this.seller = seller;
     }
 
     public void setQuantity(int quantity) {
@@ -72,11 +70,11 @@ public class Stock {
         this.item = item;
     }
 
-    public User getUser() {
-        return user;
+    public Seller getSeller() {
+        return seller;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 }
