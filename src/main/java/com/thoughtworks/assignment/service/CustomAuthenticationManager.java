@@ -33,7 +33,7 @@ public class CustomAuthenticationManager {
         final User byUsername = userRepository.findByUsername(userCredentails.getUsername());
 
         if( null == byUsername){
-            throw new UsernameNotFoundException("Could not find user with username: "+ userCredentails.getUsername());
+            throw new UsernameNotFoundException("Could not findBySeller user with username: "+ userCredentails.getUsername());
         }
 
         if( !standardPasswordEncoder.encode( userCredentails.getPassword()).equals( byUsername.getPassword())){

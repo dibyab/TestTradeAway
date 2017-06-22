@@ -19,13 +19,13 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
-public class UserBaseRepositoryTest {
+public class UserRepositoryTest {
 
     @Resource
     private TestEntityManager testEntityManager;
 
     @Resource
-    private UserBaseRepository userRepository;
+    private UserRepository userRepository;
 
     @Test
     public void shouldReturnUserWhenFindByUsername() throws Exception {

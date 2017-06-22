@@ -40,7 +40,7 @@ public class Item {
     @Column(name = "imageUrl", nullable = true)
     private URL imageUrl;
 
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Stock> stockSet = new HashSet<>();
 

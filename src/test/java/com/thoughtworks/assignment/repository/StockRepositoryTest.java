@@ -71,18 +71,22 @@ public class StockRepositoryTest {
         final Item item1 = testEntityManager.persistAndFlush(new Item("item_seller1", "test_desc"));
         saveStock( item1,seller1);
 
+
         final Seller seller2 = testEntityManager.persistAndFlush(new Seller("test_user", "test_mail_2@test.com", "username2",  "address", "password", 9999));
         final Item item2 = testEntityManager.persistAndFlush(new Item("item_seller2","test_desc"));
+        final Item item3 = testEntityManager.persistAndFlush(new Item("item_seller3", "test_desc"));
         saveStock( item2,seller2);
+        saveStock( item3,seller2);
 
         final List<Stock> all = (List<Stock>)stockRepository.findAll();
-        assertEquals(2,all.size());
+        assertEquals(3,all.size());
 
-        final List<Stock> bySellerNotIn = stockRepository.findBySeller_Id( seller1.getId());
+        final List<Stock> bySellerNotIn = stockRepository.findBySeller_IdNot( seller1.getId());
         assertNotNull( bySellerNotIn);
-        assertEquals( 1, bySellerNotIn.size());
-
+        assertEquals( 2, bySellerNotIn.size());
     }
+
+
 
     private void saveStock( Item item, Seller seller){
         Stock stock = new Stock( item, seller);

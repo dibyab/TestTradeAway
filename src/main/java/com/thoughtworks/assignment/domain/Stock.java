@@ -23,6 +23,7 @@ public class Stock {
     private Item item;
 
     @ManyToOne
+    @JsonManagedReference
     private Seller seller;
 
     @Column(name = "quantity")

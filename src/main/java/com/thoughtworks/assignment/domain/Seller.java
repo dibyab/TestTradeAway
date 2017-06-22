@@ -1,5 +1,7 @@
 package com.thoughtworks.assignment.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,6 +27,7 @@ public class Seller extends User{
     private double rating;
 
     @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonBackReference
     private Set<Stock> stocks = new HashSet<>();
 
     protected Seller() {}

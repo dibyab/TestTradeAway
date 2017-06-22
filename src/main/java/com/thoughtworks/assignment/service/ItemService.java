@@ -14,5 +14,7 @@ public interface ItemService {
 
     Page<Item> getItemsByCategory(String categoryName, Pageable pageable);
 
-    List<Item> find( ItemSearchCriteria searchCriteria);
+    List<Item> findBySeller(ItemSearchCriteria searchCriteria);
+
+    Item find(int itemId);
 }

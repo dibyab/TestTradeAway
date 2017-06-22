@@ -101,10 +101,7 @@ public class CategoryControllerITTest {
         testCategory1.addItem( new Item("item1","desc1"));
         testCategory1.addItem( new Item("item2","desc2"));
         testCategory1.addItem( new Item("item3","desc3"));
-//        mvc.perform(post("/categories")
-//                .content(mapper.writeValueAsString( testCategory1).getBytes())
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isCreated());
+
         categoryRepository.save(testCategory1);
 
     }

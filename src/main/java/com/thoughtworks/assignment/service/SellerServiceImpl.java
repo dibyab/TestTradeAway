@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.service;
 
 import com.thoughtworks.assignment.domain.Item;
+import com.thoughtworks.assignment.domain.Seller;
 import com.thoughtworks.assignment.repository.ItemSearchCriteria;
 import com.thoughtworks.assignment.repository.SellerRepository;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,18 @@ public class SellerServiceImpl implements SellerService {
     @Resource
     private ItemService itemService;
 
+    @Resource
+    private SellerRepository sellerRepository;
+
     @Override
-    public List<Item> getNewItemsForSeller(String sellerId) {
+    public List<Item> getNewItemsForSeller(int sellerId) {
 
         ItemSearchCriteria itemSearchCriteria = new ItemSearchCriteria(sellerId,false);
-        itemService.find( itemSearchCriteria);
-        return null;
+        return itemService.findBySeller( itemSearchCriteria);
+    }
+
+    @Override
+    public Seller find(int sellerId) {
+        return sellerRepository.findOne( sellerId);
     }
 }

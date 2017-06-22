@@ -5,11 +5,19 @@ package com.thoughtworks.assignment.repository;
  */
 public class ItemSearchCriteria {
 
-    private String sellerId;
+    private int sellerId;
     private boolean includeSellerItem;
 
-    public ItemSearchCriteria(String sellerId, boolean includeSellerItem) {
+    public ItemSearchCriteria(int sellerId, boolean includeSellerItem) {
         this.sellerId = sellerId;
         this.includeSellerItem = includeSellerItem;
+    }
+
+    public boolean isIncludeSellerItem() {
+        return includeSellerItem;
+    }
+
+    public int getSellerId() {
+        return sellerId;
     }
 }

@@ -1,6 +1,7 @@
 package com.thoughtworks.assignment.service;
 
 import com.thoughtworks.assignment.domain.Item;
+import com.thoughtworks.assignment.domain.Seller;
 
 import java.util.List;
 
@@ -9,5 +10,7 @@ import java.util.List;
  */
 public interface SellerService {
 
-    List<Item> getNewItemsForSeller(String sellerId);
+    List<Item> getNewItemsForSeller(int sellerId);
+
+    Seller find(int sellerId);
 }
