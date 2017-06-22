@@ -40,12 +40,14 @@ public class OrderRepositoryTest {
 
         testEntityManager.persistAndFlush(category);
         testEntityManager.persistAndFlush(buyer) ;
-        testEntityManager.persistAndFlush(seller);
+        final Seller persistSeller = testEntityManager.persistAndFlush(seller);
 
         Order order = new Order(item,seller,buyer,1,100,"xyz") ;
         final Order persist = testEntityManager.persistAndFlush(order);
 
-        assertNotNull( orderRepository.findById(persist.getId()));
+        assertEquals( 1,orderRepository.findBySeller_Id(persistSeller.getId()).size());
+
+
     }
 
 }
